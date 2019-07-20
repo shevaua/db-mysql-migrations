@@ -1,0 +1,25 @@
+<phpunit
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/latest/phpunit.xsd"
+    stopOnError="true"
+    stopOnFailure="true"
+    stopOnIncomplete="true"
+    stopOnSkipped="true"
+    stopOnRisky="true">
+
+    <php>
+        <const name="DB_HOST" value="127.0.0.1"/>
+        <const name="DB_PORT" value="3306"/>
+        <const name="DB_SOCKET" value=""/>
+        <const name="DB_NAME" value="testing"/>
+        <const name="DB_USER" value="testing"/>
+        <const name="DB_PASS" value="testing"/>
+    </php>
+
+    <testsuites>
+        <testsuite name="ALL IN">
+            <directory>./tests</directory>
+        </testsuite>
+    </testsuites>
+
+</phpunit>
