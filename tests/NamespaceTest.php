@@ -12,6 +12,8 @@ use Shevaua\DB\Mysql\Migrations\IndexQueries;
 use Shevaua\DB\Mysql\Migrations\TableQueries;
 use Shevaua\DB\Mysql\Migrations\Mysql\DataManipulator;
 use Shevaua\DB\Mysql\Migrations\Mysql\DriverContainer;
+use Shevaua\DB\Mysql\Migrations\Mysql\Helper;
+use Shevaua\DB\Mysql\Migrations\Mysql\SchemaManipulator;
 
 class NamespaceTest extends TestCase
 {
@@ -285,6 +287,41 @@ class NamespaceTest extends TestCase
         $this->assertTrue(method_exists($class, 'insert'));
         $this->assertTrue(method_exists($class, 'select'));
         $this->assertTrue(method_exists($class, 'delete'));
+    }
+
+    /**
+     * @return void
+     */
+    public function testSchemaManipulatorTrait(): void
+    {
+        $class = new class
+        {
+            use SchemaManipulator;
+        };
+        $this->assertTrue(method_exists($class, 'isTableExist'));
+        $this->assertTrue(method_exists($class, 'createTable'));
+        $this->assertTrue(method_exists($class, 'dropTable'));
+        $this->assertTrue(method_exists($class, 'isIndexExist'));
+        $this->assertTrue(method_exists($class, 'addIndex'));
+        $this->assertTrue(method_exists($class, 'dropIndex'));
+        $this->assertTrue(method_exists($class, 'isIndexEqualTo'));
+        $this->assertTrue(method_exists($class, 'isColumnExist'));
+        $this->assertTrue(method_exists($class, 'addColumn'));
+        $this->assertTrue(method_exists($class, 'dropColumn'));
+        $this->assertTrue(method_exists($class, 'isFKExist'));
+        $this->assertTrue(method_exists($class, 'addFK'));
+        $this->assertTrue(method_exists($class, 'dropFK'));
+    }
+
+    /**
+     * @return void
+     */
+    public function testHelperClass(): void
+    {
+        $this->assertTrue(method_exists(Helper::class, 'querySearchTable'));
+        $this->assertTrue(method_exists(Helper::class, 'queryListIndexes'));
+        $this->assertTrue(method_exists(Helper::class, 'queryListColumns'));
+        $this->assertTrue(method_exists(Helper::class, 'queryListFK'));
     }
 
 }
