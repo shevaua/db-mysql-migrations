@@ -5,9 +5,11 @@ use PHPUnit\Framework\TestCase;
 use Shevaua\DB\Mysql\Migrations\AbleToDowngrade;
 use Shevaua\DB\Mysql\Migrations\AbleToUpgrade;
 use Shevaua\DB\Mysql\Migrations\ColumnQueries;
+use Shevaua\DB\Mysql\Migrations\Configuration;
 use Shevaua\DB\Mysql\Migrations\ForeignKeyQueries;
 use Shevaua\DB\Mysql\Migrations\IndexQueries;
 use Shevaua\DB\Mysql\Migrations\TableQueries;
+use Shevaua\DB\Mysql\Migrations\Mysql\DriverContainer;
 
 class NamespaceTest extends TestCase
 {
@@ -191,6 +193,31 @@ class NamespaceTest extends TestCase
 
         };
         $this->assertInstanceOf(TableQueries::class, $class);
+    }
+
+    /**
+     * @return void
+     */
+    public function testDriverContainerTrait(): void
+    {
+        $class = new class
+        {
+            use DriverContainer;
+        };
+        $this->assertTrue(method_exists($class, 'setDriver'));
+        $this->assertTrue(method_exists($class, 'getDriver'));
+    }
+
+    /**
+     * @return void
+     */
+    public function testConfigurationTrait(): void
+    {
+        $class = new class
+        {
+            use Configuration;
+        };
+        $this->assertTrue(method_exists($class, 'setConfig'));
     }
 
 }

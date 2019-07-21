@@ -7,7 +7,9 @@ use Shevaua\DB\Mysql\Migrations\FileSystem\FSDriver;
 class FSDriverTest extends TestCase
 {
 
-    /***/
+    /**
+     * @return void
+     */
     public function testFSDriver(): void
     {
         $params = include dirname(__DIR__) . '/config/sample.php';

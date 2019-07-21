@@ -8,7 +8,9 @@ use Shevaua\DB\Mysql\Migrations\Mysql\QueryException;
 class MysqlDriverTest extends TestCase
 {
 
-    /***/
+    /**
+     * @return void
+     */
     public function testMysqlDriver(): void
     {
         $params = include dirname(__DIR__) . '/config/sample.php';
