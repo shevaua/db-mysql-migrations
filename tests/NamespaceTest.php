@@ -4,6 +4,7 @@ use PHPUnit\Framework\TestCase;
 
 use Shevaua\DB\Mysql\Migrations\AbleToDowngrade;
 use Shevaua\DB\Mysql\Migrations\AbleToUpgrade;
+use Shevaua\DB\Mysql\Migrations\AbstractMigration;
 use Shevaua\DB\Mysql\Migrations\ColumnQueries;
 use Shevaua\DB\Mysql\Migrations\Configuration;
 use Shevaua\DB\Mysql\Migrations\DataQueries;
@@ -322,6 +323,35 @@ class NamespaceTest extends TestCase
         $this->assertTrue(method_exists(Helper::class, 'queryListIndexes'));
         $this->assertTrue(method_exists(Helper::class, 'queryListColumns'));
         $this->assertTrue(method_exists(Helper::class, 'queryListFK'));
+    }
+
+    /**
+     * @return void
+     */
+    public function testAbstractMigration(): void
+    {
+        $migration = null;
+        $e = null;
+        try {
+            $migration = new class extends AbstractMigration
+            {
+
+                /***/
+                public function up(): void
+                {
+                }
+
+                /***/
+                public function down(): void
+                {
+                }
+
+            };
+        } catch (Throwable $e) {
+        }
+
+        $this->assertNull($e);
+        $this->assertTrue($migration instanceof AbstractMigration);
     }
 
 }
