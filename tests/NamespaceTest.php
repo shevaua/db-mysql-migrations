@@ -6,9 +6,11 @@ use Shevaua\DB\Mysql\Migrations\AbleToDowngrade;
 use Shevaua\DB\Mysql\Migrations\AbleToUpgrade;
 use Shevaua\DB\Mysql\Migrations\ColumnQueries;
 use Shevaua\DB\Mysql\Migrations\Configuration;
+use Shevaua\DB\Mysql\Migrations\DataQueries;
 use Shevaua\DB\Mysql\Migrations\ForeignKeyQueries;
 use Shevaua\DB\Mysql\Migrations\IndexQueries;
 use Shevaua\DB\Mysql\Migrations\TableQueries;
+use Shevaua\DB\Mysql\Migrations\Mysql\DataManipulator;
 use Shevaua\DB\Mysql\Migrations\Mysql\DriverContainer;
 
 class NamespaceTest extends TestCase
@@ -198,6 +200,57 @@ class NamespaceTest extends TestCase
     /**
      * @return void
      */
+    public function testDataQueriesInterface(): void
+    {
+        $class = new class implements DataQueries
+        {
+
+            /**
+             * @param string $table
+             * @param string|array $columns
+             * @param string[] $where
+             * @param string[] $order
+             * @return array
+             */
+            public function select(
+                string $table,
+                $columns = [],
+                array $where = [],
+                array $order = []
+            ): array {
+                return [];
+            }
+
+            /**
+             * @param string $table
+             * @param array $columns
+             * @return integer
+             */
+            public function insert(
+                string $table,
+                array $data
+            ): int {
+                return 0;
+            }
+
+            /**
+             * @param string $table
+             * @param string[] $where
+             * @return void
+             */
+            public function delete(
+                string $table,
+                array $where
+            ): void {
+            }
+
+        };
+        $this->assertInstanceOf(DataQueries::class, $class);
+    }
+
+    /**
+     * @return void
+     */
     public function testDriverContainerTrait(): void
     {
         $class = new class
@@ -218,6 +271,20 @@ class NamespaceTest extends TestCase
             use Configuration;
         };
         $this->assertTrue(method_exists($class, 'setConfig'));
+    }
+
+    /**
+     * @return void
+     */
+    public function testDataManipulatorTrait(): void
+    {
+        $class = new class
+        {
+            use DataManipulator;
+        };
+        $this->assertTrue(method_exists($class, 'insert'));
+        $this->assertTrue(method_exists($class, 'select'));
+        $this->assertTrue(method_exists($class, 'delete'));
     }
 
 }
