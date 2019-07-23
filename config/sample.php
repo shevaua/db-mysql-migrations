@@ -34,6 +34,7 @@ return [
      * List of ignored migrations
      */
     'ignore' => [
+        '20190527000000_initial.php',
     ],
 
 ];

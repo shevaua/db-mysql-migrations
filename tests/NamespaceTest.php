@@ -354,4 +354,11 @@ class NamespaceTest extends TestCase
         $this->assertTrue($migration instanceof AbstractMigration);
     }
 
+    /** */
+    public function testInitialMigrationFile()
+    {
+        $migration = include dirname(__DIR__) . '/migrations/20190527000000_initial.php';
+        $this->assertTrue($migration instanceof AbstractMigration);
+    }
+
 }

@@ -19,11 +19,15 @@ class FSDriverTest extends TestCase
         $migrations = $fsDriver->getMigrations();
         $this->assertEquals($migrations, [
             '.gitignore',
+            'improvements/20190528160400_empty.php',
+            'features/somefeature/20190528160500_empty.php',
         ]);
 
         $migrations = $fsDriver->getMigrations();
         $this->assertEquals($migrations, [
             '.gitignore',
+            'improvements/20190528160400_empty.php',
+            'features/somefeature/20190528160500_empty.php',
         ]);
     }
 
