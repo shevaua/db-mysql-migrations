@@ -35,6 +35,7 @@ return [
      */
     'ignore' => [
         '20190527000000_initial.php',
+        'tests',
     ],
 
 ];
